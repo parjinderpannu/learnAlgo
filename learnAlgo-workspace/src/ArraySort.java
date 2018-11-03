@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class ArraySort
 {
 	
@@ -67,9 +69,10 @@ public class ArraySort
 			a[index] = tempArray[index];
 	}
     /**
-     * Range is from 1 to n+1. So,we can calculate the sum of range using (n+1)(n+2)/2
-     * Then subtracting the sum of the values of array.
-     * */
+     * 
+     * @param a array of integers
+     * @return missing integer
+     */
     public static int findMissing(int[] a) {
     		int sum = 0;
     		int sumWithMissingNo = ((a.length+1)*(a.length+2))/2;
@@ -79,6 +82,69 @@ public class ArraySort
 		return sumWithMissingNo - sum;
 	}
     
+    /**
+     * 
+     * @param a array of integers
+     * @param n size of array
+     */
+    public static void countingSort(int[] a, int n ) {
+    		int[] count = new int[n];
+    		int current = 0;
+    		
+    		for(int i=0;i<a.length;i++) {
+    			++count[a[i]-1];
+    		}
+    		
+    		for(int i=0;i<count.length;i++) {
+    			Arrays.fill(a, current, current + count[i], i+1);
+    			current += count[i];
+    		}
+    		
+//    		System.out.println(count.toString());
+    	
+    }
+    // find Median
+    public static int findMedian(int[] a) {
+    		return findKSmallest(a,a.length/2);
+    }
+    
+    public static int findKSmallest(int[] a, int k) {
+    		int l = 0;
+    		int r = a.length-1;
+    		int p = a[r];
+
+    		while(true) {
+    			while(a[l]< p && l < r) {
+    				l++;
+    			}
+    			while(a[r]>=p && r>l) {
+    				r--;
+    			}
+    			if(l == r) {
+    				break;
+    			}
+    			swapNum(a,l,r);
+    		}
+    		
+    		swapNum(a,l,r);
+    		
+    		if(k == l+1) {
+    			return p;
+    		}else if (k < l +1) {
+    			int[] b = new int[l];
+    			System.arraycopy(a,0,b,0,l-1);
+    			return findKSmallest(b,k);
+    			
+    		}else {
+    			int[] b = new int[(r+1)-(l+1)];
+    			System.arraycopy(a,l+1,b,0,r);
+    			return findKSmallest(b,k);
+    		}
+    		
+    		
+    }
+       
+   
     // Quick Sort
     
     // Median-of-three privot selection
@@ -97,6 +163,13 @@ public class ArraySort
     {
 		if (a[i].compareTo(a[j]) > 0)
 			swap(a, i, j);
+    } 
+    
+    private static void swapNum(int[] array, int i, int j)
+    {
+		int temp = array[i];
+		array[i] = array[j];
+		array[j] = temp; 
     } 
     
     private static void swap(Object[] array, int i, int j)
