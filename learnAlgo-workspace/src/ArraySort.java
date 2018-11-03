@@ -1,5 +1,6 @@
 public class ArraySort
 {
+	
     public static <T extends Comparable<? super T>>
 			     void mergeSort(T[] a, int n) {
 		mergeSort(a, 0, n - 1);
@@ -64,7 +65,19 @@ public class ArraySort
 		// copy the result back into the original array
 		for (index = first; index <= last; index++)
 			a[index] = tempArray[index];
-	}  
+	}
+    /**
+     * Range is from 1 to n+1. So,we can calculate the sum of range using (n+1)(n+2)/2
+     * Then subtracting the sum of the values of array.
+     * */
+    public static int findMissing(int[] a) {
+    		int sum = 0;
+    		int sumWithMissingNo = ((a.length+1)*(a.length+2))/2;
+    		for(int i=0; i<a.length;i++) {
+    			sum = a[i]+sum;
+    		}
+		return sumWithMissingNo - sum;
+	}
     
     // Quick Sort
     
@@ -161,5 +174,5 @@ public class ArraySort
 			quickSort(a, first, pivotIndex - 1);
 			quickSort(a, pivotIndex + 1, last);
 		} 
-    } 
+    }
 }
