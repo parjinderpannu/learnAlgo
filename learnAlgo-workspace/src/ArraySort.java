@@ -109,39 +109,36 @@ public class ArraySort
     }
     
     public static int findKSmallest(int[] a, int k) {
-    		int l = 0;
-    		int r = a.length-1;
-    		int p = a[r];
-
-    		while(true) {
-    			while(a[l]< p && l < r) {
-    				l++;
-    			}
-    			while(a[r]>=p && r>l) {
-    				r--;
-    			}
-    			if(l == r) {
-    				break;
-    			}
-    			swapNum(a,l,r);
-    		}
+    		int left = 0;
+    		int right = a.length-1;
+    		int kthSmallest = a[a.length-1];
     		
-    		swapNum(a,l,r);
-    		
-    		if(k == l+1) {
-    			return p;
-    		}else if (k < l +1) {
-    			int[] b = new int[l];
-    			System.arraycopy(a,0,b,0,l-1);
-    			return findKSmallest(b,k);
+    		if(k > 0 && k<= right - left +1) {
     			
-    		}else {
-    			int[] b = new int[(r+1)-(l+1)];
-    			System.arraycopy(a,l+1,b,0,r);
-    			return findKSmallest(b,k);
+    			Integer[] aInt1 = Arrays.stream(a).boxed().toArray(Integer[]::new);
+    			int pos = partition(aInt1, left, right);
+    			a = Arrays.stream(aInt1).mapToInt(Integer::intValue).toArray();;
+    			
+    			if(pos-1 == k-1) {
+    				kthSmallest = a[pos];
+    				return kthSmallest;
+    			}
+    			
+    			if(pos-1>k-1) {
+    				int[] aInt2 = new int[pos];
+        			System.arraycopy(a, 0, aInt2, 0, pos);
+        			kthSmallest = findKSmallest(aInt2,k);
+        			return kthSmallest;
+    			}
+    			
+    			if(pos+1<k+1) {
+    				int[] aInt3 = new int[right - pos];
+        			System.arraycopy(a, pos+1, aInt3, 0, right-pos);
+        			kthSmallest = findKSmallest(aInt3,k);
+        			return kthSmallest;
+    			}    			
     		}
-    		
-    		
+    		return kthSmallest;
     }
        
    
