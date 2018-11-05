@@ -1,4 +1,26 @@
-2
-3
- 1 2 2 2 2 3 4 4 5 7 8 8 9 9
+**********P1**************
+Using following array
+   3   6   5   1   4
+ArraySort.findMissing(a1): 2
+
+   4   7   5   2   6   1
+ArraySort.findMissing(a2): 3
+
+**********P2**************
+Using following array
+   9   2   4   8   9   4   3   2   8   1   2   7   2   5
+a3 after ArraySort.countingSort(a3, 9)
+
+   1   2   2   2   2   3   4   4   5   7   8   8   9   9
 Worst Case running time for countingSort() in terms of m (length of array a) and n is O(m*n)
+
+**********P3**************
+Using following array
+   9   1   3   4   5   7   8   6   2  11  11  34  97  58
+ArraySort.findKSmallest(a5, 1): 1
+ArraySort.findKSmallest(a5, 4): 4
+ArraySort.findKSmallest(a5, 7): 7
+ArraySort.findKSmallest(a5, 10): 11
+ArraySort.findKSmallest(a5, 14): 97
+
+ArraySort.findMedian(a5): 7

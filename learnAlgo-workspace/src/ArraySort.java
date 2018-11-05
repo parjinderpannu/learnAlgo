@@ -104,41 +104,43 @@ public class ArraySort
     	
     }
     // find Median
+
+    
     public static int findMedian(int[] a) {
     		return findKSmallest(a,a.length/2);
     }
+ 
     
     public static int findKSmallest(int[] a, int k) {
-    		int left = 0;
     		int right = a.length-1;
-    		int kthSmallest = a[a.length-1];
+    		int kthSmallest = a[0];
     		
-    		if(k > 0 && k<= right - left +1) {
+    		if(k > 0 && k<= right+1) {
     			
     			Integer[] aInt1 = Arrays.stream(a).boxed().toArray(Integer[]::new);
-    			int pos = partition(aInt1, left, right);
+    			int pos = partitionL(aInt1, 0, right);
     			a = Arrays.stream(aInt1).mapToInt(Integer::intValue).toArray();;
     			
-    			if(pos-1 == k-1) {
+    			if(pos == k-1) {
     				kthSmallest = a[pos];
     				return kthSmallest;
     			}
     			
-    			if(pos-1>k-1) {
+    			if(pos>k-1) {
     				int[] aInt2 = new int[pos];
         			System.arraycopy(a, 0, aInt2, 0, pos);
         			kthSmallest = findKSmallest(aInt2,k);
         			return kthSmallest;
     			}
-    			
-    			if(pos+1<k+1) {
+    			else {
     				int[] aInt3 = new int[right - pos];
         			System.arraycopy(a, pos+1, aInt3, 0, right-pos);
-        			kthSmallest = findKSmallest(aInt3,k);
-        			return kthSmallest;
-    			}    			
+        			kthSmallest = findKSmallest(aInt3,k-pos-1);
+        			return kthSmallest;  
+    			}
+    						
     		}
-    		return kthSmallest;
+    		return -1;
     }
        
    
@@ -162,12 +164,6 @@ public class ArraySort
 			swap(a, i, j);
     } 
     
-    private static void swapNum(int[] array, int i, int j)
-    {
-		int temp = array[i];
-		array[i] = array[j];
-		array[j] = temp; 
-    } 
     
     private static void swap(Object[] array, int i, int j)
     {
@@ -176,6 +172,21 @@ public class ArraySort
 		array[j] = temp; 
     } 
     
+    // Partitioning with pivot at last index
+    public static int partitionL(Integer [] a, int left, int right) 
+	{ 
+		int x = a[right], index = left; 
+		for (int j = left; j <= right - 1; j++) 
+		{ 
+			if (a[j] <= x) 
+			{ 
+				swap(a,index,j);
+				index++; 
+			} 
+		} 
+		swap(a,index,right);
+		return index; 
+	}
     // Partitioning
     
     private static <T extends Comparable<? super T>>
