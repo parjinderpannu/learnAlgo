@@ -68,9 +68,9 @@ public class UnsortedLinkedDictionary<K, V>  {
 
    public V remove(K key) {
 	   V result = null;
-//	   int count = 1;
+	   int count = 1;
 //	   Node currentNode = firstNode;
-//	   Node nodeBefore = null;
+	   Node nodeBefore = null;
 //	   
 //	   if(numberOfEntries ==1 && key.equals(currentNode.getKey())) { //first node
 //		   result = currentNode.getValue();
@@ -115,7 +115,12 @@ public class UnsortedLinkedDictionary<K, V>  {
 		        }
 		        else{
 		          while(!N.next.key.equals(key)){
+		        	    nodeBefore = N;
 		            N = N.next;
+		            count++;
+		            if(count >=numberOfEntries && !N.key.equals(key)) {
+		            		return null;
+		            }		     
 		          }
 		          result = N.getValue();
 		          N.next = N.next.next;
