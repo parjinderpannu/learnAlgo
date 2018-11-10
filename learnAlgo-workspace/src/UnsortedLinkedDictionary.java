@@ -12,34 +12,53 @@ public class UnsortedLinkedDictionary<K, V>  {
 	
    public V add(K key, V value) {
 	   V result = null;
-	   boolean found = false;
-	   Node newNode = new Node(key,value);
-	   Node currentNode = firstNode;
+//	   boolean found = false;
+//	   Node newNode = new Node(key,value);
+//	   Node currentNode = firstNode;
+//	   
+//	   if(isEmpty()) {
+//		   firstNode = newNode;
+//		   numberOfEntries++;
+//	   }
+//	   else {
+//		   while(!found && (currentNode!=null)) {
+//			   if(currentNode.next == null)
+//				   break;
+//			   if(key.equals(currentNode.getKey())) {
+//				   found = true;
+//				   result = currentNode.getValue();
+//				   currentNode.setValue(value);
+//				   return result;
+//			   }
+//			   else
+//				   currentNode = currentNode.getNextNode();
+//		   } // end while 
+//		   if(currentNode.next==null) {
+//			   currentNode.next = newNode;
+//			   numberOfEntries++;
+//		   }
+//	   }
+//	   
+
 	   
-	   if(isEmpty()) {
-		   firstNode = newNode;
-		   numberOfEntries++;
-	   }
-	   else {
-		   while(!found && (currentNode!=null)) {
-			   if(currentNode.next == null)
-				   break;
-			   if(key.equals(currentNode.getKey())) {
-				   found = true;
-				   result = currentNode.getValue();
-				   currentNode.setValue(value);
-				   return result;
-			   }
-			   else
-				   currentNode = currentNode.getNextNode();
-		   } // end while 
-		   if(currentNode.next==null) {
-			   currentNode.next = newNode;
-			   numberOfEntries++;
-		   }
-	   }
-	   
-	   return result;
+		 
+		      if( firstNode == null){
+		        Node N = new Node(key,value);
+		        firstNode = N;
+		        numberOfEntries++;
+		      }
+		      else{
+		        Node N = firstNode;
+		        while( N != null){
+		          if(N.next == null){
+		            break;
+		          }
+		          N = N.next;
+		        }
+		        N.next = new Node(key,value);
+		        numberOfEntries++;
+		      }
+			   return result;
    } // end add
 
    public V remove(K key) {
