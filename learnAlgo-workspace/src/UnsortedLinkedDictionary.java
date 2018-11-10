@@ -13,24 +13,24 @@ public class UnsortedLinkedDictionary<K, V>  {
    public V add(K key, V value) {
 	   V result = null;
       if( firstNode == null){
-        Node N = new Node(key,value);
-        firstNode = N;
+        Node currentNode = new Node(key,value);
+        firstNode = currentNode;
         numberOfEntries++;
       }
       else{
-        Node N = firstNode;
-        while( N != null){
-          if(N.next == null){
+        Node curentNode = firstNode;
+        while( curentNode != null){
+          if(curentNode.next == null){
             break;
           }
-          if(key.equals(N.getKey())) {
-			   result = N.getValue();
-			   N.setValue(value);
+          if(key.equals(curentNode.getKey())) {
+			   result = curentNode.getValue();
+			   curentNode.setValue(value);
 			   return result;
 		   }
-          N = N.next;
+          curentNode = curentNode.next;
         }
-        N.next = new Node(key,value);
+        curentNode.next = new Node(key,value);
         numberOfEntries++;
       }
       return result;
@@ -38,34 +38,32 @@ public class UnsortedLinkedDictionary<K, V>  {
 
    public V remove(K key) {
 	   V result = null;
-	   int count = 1;
-	   Node nodeBefore = null;
+	   int count = 1; 
 
       if(numberOfEntries <= 1){//removes first element
-        Node N = firstNode;
-        result = N.getValue();
+        Node currentNode = firstNode;
+        result = currentNode.getValue();
         firstNode = firstNode.next;
-        N.next = null;
+        currentNode.next = null;
         numberOfEntries--;
       }
-      else{//removes the first and anyother element
-        Node N = firstNode;
-        if(N.key.equals(key)){
-        	result = N.getValue();
-        	firstNode = N.next;
+      else{//removes the first and all other elements
+        Node currentNode = firstNode;
+        if(currentNode.key.equals(key)){
+        	result = currentNode.getValue();
+        	firstNode = currentNode.next;
           numberOfEntries--;
         }
         else{
-          while(!N.next.key.equals(key)){
-        	    nodeBefore = N;
-            N = N.next;
+          while(!currentNode.next.key.equals(key)){
+            currentNode = currentNode.next;
             count++;
-            if(count >=numberOfEntries && !N.key.equals(key)) {
+            if(count >=numberOfEntries && !currentNode.key.equals(key)) {
             		return null;
             }		     
           }
-          result = N.getValue();
-          N.next = N.next.next;
+          result = currentNode.getValue();
+          currentNode.next = currentNode.next.next;
           numberOfEntries--;
         }
       }
