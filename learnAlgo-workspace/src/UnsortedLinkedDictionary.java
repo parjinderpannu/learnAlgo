@@ -53,6 +53,11 @@ public class UnsortedLinkedDictionary<K, V>  {
 		          if(N.next == null){
 		            break;
 		          }
+		          if(key.equals(N.getKey())) {
+					   result = N.getValue();
+					   N.setValue(value);
+					   return result;
+				   }
 		          N = N.next;
 		        }
 		        N.next = new Node(key,value);
@@ -63,35 +68,61 @@ public class UnsortedLinkedDictionary<K, V>  {
 
    public V remove(K key) {
 	   V result = null;
-	   int count = 1;
-	   Node currentNode = firstNode;
-	   Node nodeBefore = null;
+//	   int count = 1;
+//	   Node currentNode = firstNode;
+//	   Node nodeBefore = null;
+//	   
+//	   if(numberOfEntries ==1 && key.equals(currentNode.getKey())) { //first node
+//		   result = currentNode.getValue();
+//		   firstNode = firstNode.next;
+//		   currentNode.next = null;
+//		   numberOfEntries--;
+//	   }
+//	   else {
+//		   while(!key.equals(currentNode.next.getKey()) && currentNode.next != null) {
+//			   nodeBefore = currentNode;
+//			   currentNode = currentNode.getNextNode();
+//			   count++;
+//		   }
+//		   if(count<numberOfEntries) { // another node except first & last
+//			  result = currentNode.getValue();
+//			  currentNode.next = currentNode.next.next; 
+//			  numberOfEntries--;
+//		   }
+//		   else if(count == numberOfEntries) { // last node
+//			   result = currentNode.getValue();
+//			   currentNode = nodeBefore;
+//			   nodeBefore.next = null;
+//			   numberOfEntries--;
+//		   }
+//		   
+//	   }
 	   
-	   if(numberOfEntries ==1 && key.equals(currentNode.getKey())) { //first node
-		   result = currentNode.getValue();
-		   firstNode = firstNode.next;
-		   currentNode.next = null;
-		   numberOfEntries--;
-	   }
-	   else {
-		   while(!key.equals(currentNode.next.getKey()) && currentNode.next != null) {
-			   nodeBefore = currentNode;
-			   currentNode = currentNode.getNextNode();
-			   count++;
-		   }
-		   if(count<numberOfEntries) { // another node except first & last
-			  result = currentNode.getValue();
-			  currentNode.next = currentNode.next.next; 
-			  numberOfEntries--;
-		   }
-		   else if(count == numberOfEntries) { // last node
-			   result = currentNode.getValue();
-			   currentNode = nodeBefore;
-			   nodeBefore.next = null;
-			   numberOfEntries--;
-		   }
-		   
-	   }
+	 
+		      if(numberOfEntries <= 1){//removes first element
+		        Node N = firstNode;
+		        result = N.getValue();
+		        firstNode = firstNode.next;
+		        N.next = null;
+		        numberOfEntries--;
+		      }
+		      else{//removes the first and anyother element
+		        Node N = firstNode;
+		        if(N.key.equals(key)){
+		        	result = N.getValue();
+		        	firstNode = N.next;
+		          numberOfEntries--;
+		        }
+		        else{
+		          while(!N.next.key.equals(key)){
+		            N = N.next;
+		          }
+		          result = N.getValue();
+		          N.next = N.next.next;
+		          numberOfEntries--;
+		        }
+		      }
+		    
 	   
    	   return result;
    } // end remove
