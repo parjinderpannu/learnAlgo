@@ -200,7 +200,7 @@ public class UnsortedLinkedDictionary<K, V>  {
 		}
 		
 		public boolean hasNext() {
-			return (currentNode.next != null);
+			return (currentNode != null);
 		}
 		
 		public K next() {
@@ -228,7 +228,7 @@ public class UnsortedLinkedDictionary<K, V>  {
 		}
 		
 		public boolean hasNext() {
-			return (currentNode.next != null);
+			return (currentNode != null);
 		}
 		
 		public V next() {
