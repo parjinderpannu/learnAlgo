@@ -58,9 +58,9 @@ class Driver {
 		// B has D and E as children
 		BinaryTree<String> bTree = new BinaryTree<String>("B", dTree, eTree);
 		// C has H as right child
-		BinaryTreeInterface<String> cTree = new BinaryTree<String>("C", null, hTree);
+		BinaryTree<String> cTree = new BinaryTree<String>("C", null, hTree);
 		// A has B and C as children 
-		BinaryTreeInterface<String> aTree = new BinaryTree<String>();
+		BinaryTree<String> aTree = new BinaryTree<String>();
 		aTree.setTree("A", bTree, cTree);
 		// display root, height, number of nodes
 		System.out.println("Tree rooted at A:");
