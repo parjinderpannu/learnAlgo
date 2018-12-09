@@ -11,7 +11,7 @@ public class ExpressionTree extends BinaryTree<String> {
 		return evaluate(root);
     } // end evaluate
     
-    private double evaluate(BinaryNode<String> rootNode) {
+    private double evaluate(BinaryNodeLab9<String> rootNode) {
 		double result;
 	
 		if (rootNode == null)
