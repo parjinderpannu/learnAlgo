@@ -2,6 +2,8 @@
 public class BinarySearchTree < T extends Comparable < ? super T >>
 {
     private BinaryNode<T> root;
+    private BinaryNode<T> parentNode = null;
+    private BinaryNode<T> predecessor = null;
     
     public BinarySearchTree () {
 	root = null;
@@ -66,6 +68,85 @@ public class BinarySearchTree < T extends Comparable < ? super T >>
             result = addEntry (root, newEntry);
         return result;
     } // end add
+    
+    private BinaryNode<T> getMax(BinaryNode<T> rootNode) {
+    		while(rootNode.getRightChild() != null) {
+    			rootNode = rootNode.getRightChild();
+    		}
+    		return rootNode;
+    }
+    
+    private BinaryNode<T> getPredecessor(BinaryNode<T> rootNode, BinaryNode<T> prec, T entry ) {
+    		if(rootNode == null) {
+    			return prec;
+    		}
+    		
+    		if(rootNode.getData().compareTo(entry) == 0) {
+    			if(rootNode.getLeftChild() != null) {
+    				return getMax(rootNode.getLeftChild());
+    			}
+    		}
+    		
+    		else if (entry.compareTo(rootNode.getData()) < 0) {
+    			return getPredecessor(rootNode.getLeftChild(), prec, entry);
+    		}
+    		
+    		else {
+    			prec = rootNode;
+    			return getPredecessor(rootNode.getRightChild(),prec, entry);
+    		}
+    		return prec;
+    }
+    
+    public T getPredecessor(T entry) {
+    		return getPredecessor(root, predecessor, entry).getData();
+    }
+//    p2
+    private boolean isBST(BinaryNode<T> rootNode) {
+    		if(rootNode == null)
+    			return true;
+    		if(!isBST(rootNode.getLeftChild()))
+    			return false;
+    		
+    		if(parentNode != null && parentNode.getData().compareTo(rootNode.getData())>=0) {
+    			return false;
+    		}
+    		
+    		parentNode = rootNode;
+    		
+    		if(!isBST(rootNode.getRightChild()))
+    			return false;
+    		
+    		return true;
+    }
+//    p2
+    public boolean isBST() {
+       return isBST(root);
+   }
+    
+// 	P1
+//  Runtime in O(n) and memory O(h)   
+    private int isBalanced(BinaryNode<T> rootNode) {
+    		if(rootNode == null) return -1;
+    		
+    		int leftChildHeight = isBalanced(rootNode.getLeftChild());
+    		if (leftChildHeight == Integer.MIN_VALUE) return Integer.MIN_VALUE;
+    		
+    		int rightChildHeight = isBalanced(rootNode.getRightChild());
+    		if(rightChildHeight == Integer.MIN_VALUE) return -Integer.MIN_VALUE;
+    		
+    		int diff = leftChildHeight - rightChildHeight;
+    		if(Math.abs(diff) > 1) {
+    			return -1;
+    		}
+    		else {
+    			return Math.max(leftChildHeight, rightChildHeight) + 1;
+    		}	
+    }
+//    P1
+    public boolean isBalanced() {
+    		return isBalanced(root) != Integer.MIN_VALUE;
+    }
 
     class ReturnObject {
 	T data;

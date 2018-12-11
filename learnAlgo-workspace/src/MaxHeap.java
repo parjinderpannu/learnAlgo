@@ -1,5 +1,5 @@
 import java.util.Arrays;
-public class MaxHeap < T extends Comparable < ? super T >> implements MaxHeapInterface 
+public class MaxHeap < T extends Comparable < ? super T >> implements MaxHeapInterface<T> 
 {
     private T [] heap; // array of heap entries
     private int lastIndex; // index of last entry
@@ -20,7 +20,7 @@ public class MaxHeap < T extends Comparable < ? super T >> implements MaxHeapInt
 
     public void add (T newEntry) {
         lastIndex++;
-        ensureCapacity ();
+//        ensureCapacity ();
         int newIndex = lastIndex;
         int parentIndex = newIndex / 2;
         while ((parentIndex > 0) && newEntry.compareTo (heap [parentIndex]) > 0) {
